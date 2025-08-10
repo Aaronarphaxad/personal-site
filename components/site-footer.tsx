@@ -6,7 +6,7 @@ export default function SiteFooter() {
           Built with Next.js and thoughtful defaults. Typography by Space Grotesk and IBM Plex Mono.
         </p>
         <p className="mt-2">
-          {new Date().getFullYear()} © Your Name
+          {new Date().getFullYear()} © Aaron Omale
         </p>
       </div>
     </footer>

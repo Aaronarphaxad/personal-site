@@ -25,7 +25,8 @@ const LINKS: SectionLink[] = [
 export default function NavOrb() {
   const { open, setOpen } = useMenu()
   const { open: openSection, active } = useSectionReveal()
-  const [radius, setRadius] = useState<number>(calcRadius())
+  // Initialize to a deterministic value to avoid SSR/CSR mismatch; compute real value on mount
+  const [radius, setRadius] = useState<number>(220)
 
   // Keyboard: toggle and hotkeys
   useEffect(() => {
@@ -48,9 +49,10 @@ export default function NavOrb() {
     return () => window.removeEventListener("keydown", onKey)
   }, [open, setOpen])
 
-  // Recalculate radius on resize for better spacing/alignment
+  // Recalculate radius on mount and on resize for better spacing/alignment
   useEffect(() => {
     const onResize = () => setRadius(calcRadius())
+    onResize()
     window.addEventListener("resize", onResize)
     return () => window.removeEventListener("resize", onResize)
   }, [])
@@ -68,9 +70,9 @@ export default function NavOrb() {
   }
 
   const positions = useMemo(() => {
-    // Slightly narrower arc to bring items closer together
-    const startDeg = -35
-    const endDeg = -145
+    // Widen arc slightly to add spacing between neighboring items
+    const startDeg = -25
+    const endDeg = -155
     // Push items outward so their inner edges align with the arc stroke
     const itemOffsetPx = 16
     const effectiveRadius = radius + itemOffsetPx
@@ -196,7 +198,7 @@ export default function NavOrb() {
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
           className={cn(
-            "peer relative inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full border border-foreground/15 bg-background/80 text-foreground shadow-lg ring-0 backdrop-blur transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] hover:ring-1 hover:ring-[var(--accent)]",
+            "peer relative inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full border border-foreground/15 bg-background/80 text-foreground shadow-lg ring-0 backdrop-blur transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] hover:ring-1 hover:ring-[var(--accent)] cursor-pointer",
             open && "scale-105"
           )}
         >

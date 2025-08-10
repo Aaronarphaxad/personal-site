@@ -53,7 +53,7 @@ export async function POST() {
     client.createIfNotExists({
       _id: "settings.site",
       _type: "settings",
-      name: "Your Name",
+      name: "Aaron Omale",
       role: "Self‑taught Software Developer",
       current: "System Administrator",
       location: "City, Country",

@@ -14,6 +14,7 @@ import NavOrb from "@/components/nav-orb"
 import { SectionRevealProvider, Section } from "@/components/section-reveal"
 import BaselineGrid from "@/components/baseline-grid"
 import { fetchProfileFromSanity } from "@/lib/sanity/fetch-site"
+import Script from "next/script"
 
 export default async function Page() {
   // Try to load from Sanity; fall back to local profile.ts
@@ -32,6 +33,19 @@ export default async function Page() {
         } as React.CSSProperties
       }
     >
+      {/* JSON-LD Person schema for richer snippets */}
+      <Script id="ld-person" type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Aaron Omale',
+          url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+          sameAs: [],
+          jobTitle: 'Software Developer',
+          description:
+            'Self‑taught software developer and systems thinker. Notes, projects, and experiments.',
+        })}
+      </Script>
       <div className="min-h-[100dvh] bg-background text-foreground pb-24 md:pb-0 overflow-x-clip">
         <SectionRevealProvider>
           <SiteHeader profile={profile} minimal />

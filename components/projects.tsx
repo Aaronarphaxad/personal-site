@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { profile as defaultProfile, type Project } from "@/lib/profile"
 import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
@@ -37,12 +38,13 @@ export default function Projects({
               className="group flex flex-col overflow-hidden rounded-xl border border-foreground/10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
             >
               <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted">
-                <img
+                <Image
                   src={p.image ?? "/placeholder.svg?height=640&width=960&query=Minimal%20project%20cover"}
                   alt={p.title}
-                  className="h-full w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
-                  loading="lazy"
-                  decoding="async"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                  priority={false}
+                  className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
                 />
                 <div
                   aria-hidden="true"
@@ -78,7 +80,7 @@ export default function Projects({
         {profile.projects.length > 0 && (
           <div className="mt-6 text-sm text-foreground/60">
             Prefer deep dives? Open any card. For a quick skim,{" "}
-            <Link href="#notes" className="text-[var(--accent)] underline-offset-4 hover:underline">
+            <Link href="/#notes" className="text-[var(--accent)] underline-offset-4 hover:underline">
               read recent notes
             </Link>
             .

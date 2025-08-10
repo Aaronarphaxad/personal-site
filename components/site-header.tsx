@@ -28,7 +28,7 @@ export default function SiteHeader({
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex h-16 items-center justify-between">
           <Link
-            href="#"
+            href="/#about"
             className="flex items-center gap-2 text-sm font-medium"
             aria-label="Go to home"
           >

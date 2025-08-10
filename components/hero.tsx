@@ -2,6 +2,7 @@
 
 import { profile as defaultProfile } from "@/lib/profile"
 import Image from "next/image"
+import Link from "next/link"
 
 type Props = {
   profile?: typeof defaultProfile
@@ -83,13 +84,17 @@ export default function Hero({ profile = defaultProfile }: Props) {
 
           {/* Now strip: common in designer portfolios */}
           {now ? (
-            <div className="rounded-xl border border-foreground/10 bg-background/60 p-3 text-sm text-foreground/80 backdrop-blur">
+            <Link
+              href="/#notes"
+              className="rounded-xl border border-foreground/10 bg-background/60 p-3 text-sm text-foreground/80 backdrop-blur transition-colors hover:border-[var(--accent)]"
+              aria-label="Jump to notes"
+            >
               <span className="mr-2 rounded-md border border-foreground/10 px-2 py-0.5 text-xs text-foreground/60">
                 Now
               </span>
               <span className="font-medium">{now.title}</span>
               <span className="text-foreground/60">{' — '}{now.tags?.slice(0, 2).join(" · ")}</span>
-            </div>
+            </Link>
           ) : null}
 
           {/* Facts */}
@@ -109,10 +114,22 @@ function FactsBar({ profile = defaultProfile }: Props) {
           {profile.location}
         </li>
         <li className="inline-flex items-center gap-2 rounded-md border border-foreground/10 px-3 py-2 font-mono text-foreground/80">
-          self_taught=true
+          curious cat
         </li>
         <li className="inline-flex items-center gap-2 rounded-md border border-foreground/10 px-3 py-2 font-mono text-foreground/80">
           systems-mindset
+        </li>
+        <li className="inline-flex items-center gap-2 rounded-md border border-foreground/10 px-3 py-2 font-mono text-foreground/80">
+          volleyball beast
+        </li>
+        <li className="inline-flex items-center gap-2 rounded-md border border-foreground/10 px-3 py-2 font-mono text-foreground/80">
+          problem-solver
+        </li>
+        <li className="inline-flex items-center gap-2 rounded-md border border-foreground/10 px-3 py-2 font-mono text-foreground/80">
+          dad
+        </li>
+        <li className="inline-flex items-center gap-2 rounded-md border border-foreground/10 px-3 py-2 font-mono text-foreground/80">
+          team player
         </li>
       </ul>
     </div>

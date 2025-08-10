@@ -77,7 +77,7 @@ export type Profile = {
 }
 
 export const profile: Profile = {
-  name: "Your Name",
+  name: "Aaron Omale",
   role: "Self‑taught Software Developer",
   current: "System Administrator",
   location: "City, Country",
