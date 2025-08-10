@@ -3,6 +3,7 @@
 import { profile as defaultProfile } from "@/lib/profile"
 import Image from "next/image"
 import Link from "next/link"
+import { useSectionReveal } from "@/components/section-reveal"
 
 type Props = {
   profile?: typeof defaultProfile
@@ -10,6 +11,7 @@ type Props = {
 
 export default function Hero({ profile = defaultProfile }: Props) {
   const now = profile.notes?.[0]
+  const { open } = useSectionReveal()
 
   return (
     <section aria-labelledby="hero-title" id="top" className="relative isolate">
@@ -86,6 +88,10 @@ export default function Hero({ profile = defaultProfile }: Props) {
           {now ? (
             <Link
               href="/#notes"
+              onClick={(e) => {
+                e.preventDefault()
+                open("notes")
+              }}
               className="rounded-xl border border-foreground/10 bg-background/60 p-3 text-sm text-foreground/80 backdrop-blur transition-colors hover:border-[var(--accent)]"
               aria-label="Jump to notes"
             >

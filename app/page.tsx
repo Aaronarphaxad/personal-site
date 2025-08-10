@@ -15,6 +15,7 @@ import { SectionRevealProvider, Section } from "@/components/section-reveal"
 import BaselineGrid from "@/components/baseline-grid"
 import { fetchProfileFromSanity } from "@/lib/sanity/fetch-site"
 import Script from "next/script"
+export const revalidate = 300
 
 export default async function Page() {
   // Try to load from Sanity; fall back to local profile.ts

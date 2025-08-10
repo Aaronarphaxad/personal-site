@@ -18,14 +18,8 @@ type SectionRevealState = {
 const SectionRevealContext = createContext<SectionRevealState | null>(null)
 
 export function SectionRevealProvider({ children }: { children: React.ReactNode }) {
-  // Initialize from URL hash (deep link) or default to "about"
-  const [active, setActive] = useState<string>(() => {
-    if (typeof window !== "undefined") {
-      const id = window.location.hash?.replace("#", "")
-      return id || "about"
-    }
-    return "about"
-  })
+  // Hydration-safe default; update from URL hash after mount
+  const [active, setActive] = useState<string>("about")
 
   // Update active and URL hash without triggering a jump
   const open = useCallback((id: string) => {
@@ -49,6 +43,8 @@ export function SectionRevealProvider({ children }: { children: React.ReactNode 
     function onHashChange() {
       applyHash()
     }
+    // Initialize from current hash once to avoid SSR/CSR mismatch
+    applyHash()
     window.addEventListener("popstate", onPop)
     window.addEventListener("hashchange", onHashChange)
     return () => {

@@ -59,13 +59,6 @@ export default function NavOrb() {
 
   function go(id: string) {
     openSection(id)
-    requestAnimationFrame(() => {
-      const el = document.getElementById(id)
-      if (el) {
-        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" })
-      }
-    })
     setOpen(false)
   }
 

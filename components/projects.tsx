@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useSectionReveal } from "@/components/section-reveal"
 import Image from "next/image"
 import { profile as defaultProfile, type Project } from "@/lib/profile"
 import { Badge } from "@/components/ui/badge"
@@ -14,6 +15,7 @@ export default function Projects({
 }) {
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState<Project | null>(null)
+  const { open: openSection } = useSectionReveal()
 
   function openCase(p: Project) {
     setSelected(p)
@@ -80,7 +82,14 @@ export default function Projects({
         {profile.projects.length > 0 && (
           <div className="mt-6 text-sm text-foreground/60">
             Prefer deep dives? Open any card. For a quick skim,{" "}
-            <Link href="/#notes" className="text-[var(--accent)] underline-offset-4 hover:underline">
+            <Link
+              href="/#notes"
+              onClick={(e) => {
+                e.preventDefault()
+                openSection("notes")
+              }}
+              className="text-[var(--accent)] underline-offset-4 hover:underline"
+            >
               read recent notes
             </Link>
             .

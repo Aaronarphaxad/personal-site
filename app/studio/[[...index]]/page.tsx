@@ -2,10 +2,10 @@
 
 import { NextStudio } from "next-sanity/studio"
 import config from "../../../sanity.config"
-import { SANITY_PROJECT_ID } from "@/lib/sanity/env"
 
 export default function StudioPage() {
-  if (!SANITY_PROJECT_ID) {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+  if (!projectId) {
     return (
       <main className="mx-auto max-w-xl px-4 py-12">
         <h1 className="text-2xl font-semibold tracking-tight">Sanity Studio</h1>
