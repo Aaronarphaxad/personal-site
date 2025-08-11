@@ -12,7 +12,7 @@ export default function Experience({
           Path so far
         </h2>
         <ol className="mt-6 grid gap-6">
-          {profile.experience.map((e, idx) => (
+          {profile.experience.reverse().map((e, idx) => (
             <li key={idx} className="relative pl-6">
               <span className="absolute left-0 top-2 h-2 w-2 rounded-full bg-[var(--accent)]" />
               <div className="rounded-lg border border-foreground/10 p-4">

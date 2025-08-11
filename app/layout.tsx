@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: '/',
     title: 'Aaron Omale',
     siteName: 'Aaron Omale',
-    description: 'Self‑taught software developer and systems thinker.',
+    description: 'Software developer | Cloud Ops | Systems Analyst',
     images: [
       { url: '/avatar.png', width: 1200, height: 630, alt: 'Aaron Omale' },
     ],
