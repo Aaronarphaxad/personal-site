@@ -67,7 +67,7 @@ export default function Projects({
                 </p>
                 <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-foreground/60">
                   {p.role ? <span className="rounded border border-foreground/10 px-2 py-1">{p.role}</span> : null}
-                  {p.tags.slice(0, 3).map((t) => (
+                  {(p.tags ?? []).slice(0, 3).map((t) => (
                     <Badge key={t} variant="outline" className="border-foreground/15 text-foreground/60">
                       {t}
                     </Badge>

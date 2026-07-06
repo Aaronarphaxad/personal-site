@@ -6,6 +6,9 @@ import ThemeToggle from "./theme-toggle"
 import { toggleBaselineGrid } from "@/components/baseline-grid"
 import { cn } from "@/lib/utils"
 import { Circle } from 'lucide-react'
+import { useSectionReveal } from "@/components/section-reveal"
+import { useMenu } from "@/components/menu-state"
+import { DEFAULT_SECTION_ID } from "@/lib/sections"
 
 type Props = {
   minimal?: boolean
@@ -18,6 +21,16 @@ export default function SiteHeader({
   sticky = true,
   profile = defaultProfile,
 }: Props) {
+  const { open: openSection } = useSectionReveal()
+  const { setOpen: setMenuOpen } = useMenu()
+
+  function goHome(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault()
+    openSection(DEFAULT_SECTION_ID)
+    setMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
   return (
     <header
       className={cn(
@@ -29,8 +42,9 @@ export default function SiteHeader({
         <div className="flex h-16 items-center justify-between">
           <Link
             href="/#about"
-            className="flex items-center gap-2 text-sm font-medium"
-            aria-label="Go to home"
+            onClick={goHome}
+            className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-[var(--accent)]"
+            aria-label="Back to about"
           >
             <div className="relative">
               <div className="h-5 w-5 rounded-[6px] border border-foreground/15" />

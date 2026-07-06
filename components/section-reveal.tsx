@@ -9,9 +9,14 @@ import React, {
   useRef,
   useState,
 } from "react"
+import {
+  DEFAULT_SECTION_ID,
+  resolveSectionId,
+  type SectionId,
+} from "@/lib/sections"
 
 type SectionRevealState = {
-  active: string
+  active: SectionId
   open: (id: string) => void
 }
 
@@ -19,14 +24,15 @@ const SectionRevealContext = createContext<SectionRevealState | null>(null)
 
 export function SectionRevealProvider({ children }: { children: React.ReactNode }) {
   // Hydration-safe default; update from URL hash after mount
-  const [active, setActive] = useState<string>("about")
+  const [active, setActive] = useState<SectionId>(DEFAULT_SECTION_ID)
 
   // Update active and URL hash without triggering a jump
   const open = useCallback((id: string) => {
-    setActive(id)
+    const next = resolveSectionId(id)
+    setActive(next)
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href)
-      url.hash = id
+      url.hash = next
       window.history.pushState({}, "", url.toString())
     }
   }, [])
@@ -35,7 +41,7 @@ export function SectionRevealProvider({ children }: { children: React.ReactNode 
   useEffect(() => {
     function applyHash() {
       const id = window.location.hash?.replace("#", "")
-      if (id) setActive(id)
+      setActive(resolveSectionId(id || DEFAULT_SECTION_ID))
     }
     function onPop() {
       applyHash()

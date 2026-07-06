@@ -12,9 +12,10 @@ export default function Notes({ profile = defaultProfile }: { profile?: typeof d
   const [selected, setSelected] = React.useState<string | undefined>(undefined)
 
   const filtered = React.useMemo(() => {
+    const notes = profile.notes ?? []
     const q = query.trim().toLowerCase()
-    if (!q) return profile.notes
-    return profile.notes.filter((n) => {
+    if (!q) return notes
+    return notes.filter((n) => {
       const inTitle = n.title.toLowerCase().includes(q)
       const inContent = n.content.toLowerCase().includes(q)
       const inTags = n.tags.some((t) => t.toLowerCase().includes(q))
@@ -125,7 +126,7 @@ export default function Notes({ profile = defaultProfile }: { profile?: typeof d
                   <div className="flex items-center gap-3">
                     <time className="text-xs text-foreground/60">{selectedNote.date}</time>
                     <div className="hidden flex-wrap gap-1.5 sm:flex">
-                      {selectedNote.tags.map((t) => (
+                      {(selectedNote.tags ?? []).map((t) => (
                         <Badge key={t} variant="outline" className="border-foreground/15 text-foreground/60">
                           {t}
                         </Badge>
@@ -134,9 +135,9 @@ export default function Notes({ profile = defaultProfile }: { profile?: typeof d
                   </div>
                 </header>
                 <div className="mt-4 sm:mt-6">{renderParagraphs(selectedNote.content)}</div>
-                {selectedNote.tags.length > 0 && (
+                {(selectedNote.tags ?? []).length > 0 && (
                   <div className="mt-6 flex flex-wrap gap-1.5 sm:hidden">
-                    {selectedNote.tags.map((t) => (
+                    {(selectedNote.tags ?? []).map((t) => (
                       <Badge key={t} variant="outline" className="border-foreground/15 text-foreground/60">
                         {t}
                       </Badge>

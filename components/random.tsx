@@ -36,7 +36,7 @@ export default function RandomStuff({
         <div className="mt-6">
           <h3 className="text-sm font-medium text-foreground/80">Books</h3>
           <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {random.books.map((b) => (
+            {(random.books ?? []).map((b) => (
               <li key={b.title} className="flex gap-3 rounded-xl border border-foreground/10 p-3">
                 <img
                   src={b.cover ?? "/placeholder.svg?height=96&width=72&query=book%20cover"}
@@ -61,7 +61,7 @@ export default function RandomStuff({
         <div className="mt-6">
           <h3 className="text-sm font-medium text-foreground/80">Music</h3>
           <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {random.music.map((m) => (
+            {(random.music ?? []).map((m) => (
               <li key={m.artist + m.track} className="flex items-center gap-3 rounded-xl border border-foreground/10 p-3">
                 <img
                   src={m.art ?? "/placeholder.svg?height=64&width=64&query=album%20art"}
@@ -81,7 +81,7 @@ export default function RandomStuff({
         <div className="mt-6">
           <h3 className="text-sm font-medium text-foreground/80">Shows & movies</h3>
           <ul className="mt-3 flex flex-wrap gap-2">
-            {random.shows.map((s) => (
+            {(random.shows ?? []).map((s) => (
               <li key={s.title} className="rounded-md border border-foreground/10 px-3 py-2 text-sm">
                 {s.title}
                 {s.year ? <span className="text-foreground/60"> · {s.year}</span> : null}

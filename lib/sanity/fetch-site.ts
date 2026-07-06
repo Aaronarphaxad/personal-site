@@ -1,7 +1,7 @@
 import { sanityClient, urlForImage } from "./client"
 import { SANITY_PROJECT_ID } from "./env"
 import { SETTINGS, PROJECTS, EXPERIENCE, NOTES, QUOTES, BOOKS, MUSIC, SHOWS } from "./queries"
-import { profile as fallbackProfile, type Profile } from "@/lib/profile"
+import { profile as fallbackProfile, normalizeProfile, type Profile } from "@/lib/profile"
 
 export async function fetchProfileFromSanity(): Promise<Profile | null> {
   if (!SANITY_PROJECT_ID) {
@@ -69,7 +69,7 @@ export async function fetchProfileFromSanity(): Promise<Profile | null> {
       },
     }
 
-    return mapped
+    return normalizeProfile(mapped)
   } catch (err) {
     console.warn("Sanity fetch failed, using fallback profile:", err)
     return null

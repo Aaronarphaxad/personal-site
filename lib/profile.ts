@@ -264,3 +264,44 @@ export const profile: Profile = {
     ],
   },
 }
+
+function asArray<T>(value: T[] | null | undefined, fallback: T[]): T[] {
+  return Array.isArray(value) ? value : fallback
+}
+
+/** Ensure CMS/partial data never leaves required arrays as null. */
+export function normalizeProfile(input: Partial<Profile> | null | undefined): Profile {
+  const source = input ?? {}
+
+  return {
+    name: source.name || profile.name,
+    role: source.role || profile.role,
+    current: source.current || profile.current,
+    location: source.location || profile.location,
+    email: source.email || profile.email,
+    tagline: source.tagline || profile.tagline,
+    about: source.about || profile.about,
+    availability: source.availability || profile.availability,
+    footballTeam: source.footballTeam || profile.footballTeam,
+    socials: asArray(source.socials, profile.socials),
+    values: asArray(source.values, profile.values),
+    experience: asArray(source.experience, profile.experience),
+    stack: asArray(source.stack, profile.stack),
+    quotes: asArray(source.quotes, profile.quotes),
+    projects: asArray(source.projects, profile.projects).map((p) => ({
+      ...p,
+      tags: asArray(p.tags, []),
+      highlights: p.highlights ? asArray(p.highlights, []) : undefined,
+    })),
+    notes: asArray(source.notes, profile.notes).map((n) => ({
+      ...n,
+      tags: asArray(n.tags, []),
+    })),
+    random: {
+      teamBadge: source.random?.teamBadge ?? profile.random.teamBadge,
+      books: asArray(source.random?.books, profile.random.books),
+      music: asArray(source.random?.music, profile.random.music),
+      shows: asArray(source.random?.shows, profile.random.shows),
+    },
+  }
+}

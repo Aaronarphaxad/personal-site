@@ -9,7 +9,7 @@ import RandomStuff from "@/components/random"
 import Contact from "@/components/contact"
 import SiteFooter from "@/components/site-footer"
 import { grotesk, plexMono } from "@/lib/fonts"
-import { profile as fallbackProfile } from "@/lib/profile"
+import { normalizeProfile } from "@/lib/profile"
 import NavOrb from "@/components/nav-orb"
 import { SectionRevealProvider, Section } from "@/components/section-reveal"
 import BaselineGrid from "@/components/baseline-grid"
@@ -20,7 +20,7 @@ export const revalidate = 300
 export default async function Page() {
   // Try to load from Sanity; fall back to local profile.ts
   const fetched = await fetchProfileFromSanity()
-  const profile = fetched ?? fallbackProfile
+  const profile = normalizeProfile(fetched)
 
   // If you set an accent color in Sanity settings, it will override the default below.
   const accent = (fetched as any)?.accent || "#7CFF6B"
